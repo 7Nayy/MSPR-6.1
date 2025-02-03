@@ -7,6 +7,15 @@ from concurrent.futures import ThreadPoolExecutor
 import logging
 from collections import defaultdict
 import pandas as pd
+from supabase import create_client, Client
+
+# URL de l'API Supabase et clé Service Role
+supabase_url = "https://qmaywilajvnwvcnacfmu.supabase.co"
+supabase_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFtYXl3aWxhanZud3ZjbmFjZm11Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzc3MTQ0MjAsImV4cCI6MjA1MzI5MDQyMH0.s44JkNSwfCvEipUEo5ABI8ZfWPXuLOkHliDQcsK4-ug"
+
+# Créer le client Supabase
+supabase: Client = create_client(supabase_url, supabase_key)
+
 
 # Configuration du logger pour enregistrer les erreurs
 logging.basicConfig(filename="dataset_processing.log", level=logging.INFO)
