@@ -1,0 +1,70 @@
+body 
+{
+    background: url("C:/Users/HP/OneDrive - Ifag Paris/MSPR/img/ImageFond.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.entete 
+{
+    position: absolute;
+    text-align: center;
+    top: 10%;
+    width: 100%;
+    font-size: 2rem;
+    border-radius: 1%;
+    padding: 1%;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.corps 
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    height: auto;
+    bottom: 5%;
+    padding: 5%;
+    gap: 5%;
+}
+
+.corps a 
+{
+    color: black;
+    text-decoration: none;
+}
+
+.inscription, .connexion 
+{
+    padding: 2% 5%;
+    border: none;
+    border-radius: 1%;
+    background-color: rgba(255, 255, 255, 0.8);
+    color: rgb(0, 0, 0);
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 0.5% 1% rgba(111, 111, 111, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.inscription:hover, .connexion:hover 
+{
+    background-color: #45a049;
+}
+
+@media (max-width: 768px) {
+    .entete 
+    {
+        font-size: 1.5rem;
+    }
+    .corps 
+    {
+        flex-direction: column;
+        gap: 5%;
+    }
+    .inscription, .connexion {
+        width: 80%;
+    }
+}
