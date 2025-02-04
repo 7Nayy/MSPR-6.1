@@ -11,7 +11,7 @@ from supabase import create_client, Client
 
 # URL de l'API Supabase et clé Service Role
 supabase_url = "https://qmaywilajvnwvcnacfmu.supabase.co"
-supabase_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFtYXl3aWxhanZud3ZjbmFjZm11Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzc3MTQ0MjAsImV4cCI6MjA1MzI5MDQyMH0.s44JkNSwfCvEipUEo5ABI8ZfWPXuLOkHliDQcsK4-ug"
+supabase_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imxla25ka2lqeXZzcnR6cHNzZWpiIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTczNzk3MTUzNiwiZXhwIjoyMDUzNTQ3NTM2fQ.pjeE5lfQ_NXPWakV7UMvU2RWsHKnqZBtFKx4t32Z0lA"
 
 # Créer le client Supabase
 supabase: Client = create_client(supabase_url, supabase_key)
