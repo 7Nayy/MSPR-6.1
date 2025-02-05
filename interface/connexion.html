@@ -7,9 +7,9 @@
     <link rel="stylesheet" href="connexion.css">
 </head>
 <body>
-    <div class="entete">𝓦𝓘𝓛𝓓𝓛𝓔𝓝𝓢</div>
+    <div class="entete"></div>
     <div class="corps">
-        <form class="connexion-form">
+        <form class="connexion-form" id="connexionForm">
             <div class="form-group">
                 <label for="username">Nom d'utilisateur</label>
                 <input type="text" id="username" name="username" required>
@@ -19,7 +19,17 @@
                 <input type="password" id="password" name="password" required>
             </div>
             <button type="submit" class="connexion">CONNEXION</button>
+            <button class="accueil"><a href="accueil.html">⬅️</a></button>
         </form>
     </div>
+    <script>
+        // Cibler le formulaire par son id
+        document.getElementById('connexionForm').addEventListener('submit', function(event) {
+            // (rechargement de la page)
+            event.preventDefault();
+
+            window.location.href = 'scan.html';
+        });
+    </script>
 </body>
 </html>
