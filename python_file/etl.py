@@ -4,6 +4,9 @@ from supabase import create_client
 from typing import Dict, List
 from datetime import datetime
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Couleurs pour les prints
 class Colors:
@@ -170,8 +173,9 @@ class FootprintETL:
 
 # Exemple d'utilisation
 if __name__ == "__main__":
-    SUPABASE_URL = "https://lekndkijyvsrtzpssejb.supabase.co"
-    SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imxla25ka2lqeXZzcnR6cHNzZWpiIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTczNzk3MTUzNiwiZXhwIjoyMDUzNTQ3NTM2fQ.pjeE5lfQ_NXPWakV7UMvU2RWsHKnqZBtFKx4t32Z0lA"
 
-    etl = FootprintETL(SUPABASE_URL, SUPABASE_KEY)
+    supabase_url = os.getenv('SUPABASE_URL')
+    supabase_key = os.getenv('SUPABASE_KEY')
+
+    etl = FootprintETL(supabase_url, supabase_key)
     stats = etl.run_etl()
