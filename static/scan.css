@@ -80,3 +80,64 @@ body
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+
+/* Conserver vos styles existants et ajouter : */
+
+.scan-options {
+    display: flex;
+    gap: 2rem;
+    flex-direction: column;
+    align-items: center;
+}
+
+.scan-btn {
+    padding: 12px 20px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 30px;
+    background-color: #f0f0f5;
+    color: rgb(0, 0, 0);
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 250px;
+}
+
+.scan-btn:hover {
+    background-color: #3cb748;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.preview-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.preview-container img {
+    max-width: 90vw;
+    max-height: 70vh;
+    margin-bottom: 15px;
+}
+
+.validate-btn {
+    composes: scan-btn;
+    background-color: #3cb748;
+    color: white;
+}
+
+#camera {
+    max-width: 90vw;
+    max-height: 70vh;
+    margin: 20px auto;
+    display: block;
+}
