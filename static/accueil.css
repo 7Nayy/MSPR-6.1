@@ -5,7 +5,7 @@ body
 
 .entete 
 {
-    background-image: url("Design/wildaware-high-resolution-color-logo.png");
+    background-image: url("/static/Design/wildaware-high-resolution-color-logo.png");
     position: absolute;
     text-align: center;
     width: 100%;
@@ -17,7 +17,7 @@ body
     background-position: center;
 }
 
-.corps 
+.corps
 {
     display: flex;
     justify-content: center;
@@ -30,7 +30,7 @@ body
     gap: 5%;
 }
 
-.corps a 
+.corps a
 {
     color: black;
     text-decoration: none;
@@ -55,8 +55,6 @@ body
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
-
-
 
 @media (max-width: 100%) {
     .entete 
