@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="connexion.css">
+</head>
+<body>
+    <div class="entete"></div>
+    <div class="corps">
+        <form class="connexion-form" id="connexionForm">
+            <div class="form-group">
+                <label for="username">Nom d'utilisateur</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Mot de passe</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit" class="connexion">CONNEXION</button>
+            <button class="accueil"><a href="accueil.html">⬅️</a></button>
+        </form>
+    </div>
+    <script>
+        // Cibler le formulaire par son id
+        document.getElementById('connexionForm').addEventListener('submit', function(event) {
+            // (rechargement de la page)
+            event.preventDefault();
+
+            window.location.href = 'scan.html';
+        });
+    </script>
+</body>
+</html>
