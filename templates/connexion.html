@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connexion</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='connexion.css') }}">
+    <style>
+        .entete {
+            background-image: url("{{ url_for('static', filename='Design/wildaware-high-resolution-color-logo.png') }}");
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+    </style>
 </head>
 <body>
     <div class="entete"></div>
@@ -24,7 +32,7 @@
             </div>
             {% endif %}
             <button type="submit" class="connexion">CONNEXION</button>
-            <button class="accueil"><a href="{{ url_for('index') }}">⬅️</a></button>
+            <button type="button" class="accueil"><a href="{{ url_for('index') }}">⬅️</a></button>
         </form>
     </div>
 </body>
