@@ -13,18 +13,18 @@
             <h1>Scanner un document</h1>
             <p class="user-email">Connecté en tant que : {{ email }}</p>
 
-            <button onclick="document.getElementById('fileInput').click()" class="connexion">
+            <button id="importButton" class="connexion">
                 IMPORTER UNE IMAGE
             </button>
             <input type="file" id="fileInput" accept="image/*" hidden>
 
-            <button onclick="startCamera()" class="connexion">
+            <button id="photoButton" class="connexion">
                 PRENDRE UNE PHOTO
             </button>
 
             <div id="preview" class="preview-zone" hidden>
                 <img id="imagePreview" alt="Aperçu">
-                <button onclick="validateImage()" class="connexion">VALIDER</button>
+                <button id="validateButton" type="button" class="connexion">VALIDER</button>
             </div>
 
             <a href="{{ url_for('logout') }}" class="deconnexion">Déconnexion</a>
