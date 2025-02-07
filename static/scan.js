@@ -1,67 +1,135 @@
 let stream = null;
 
+document.addEventListener('DOMContentLoaded', () => {
+    console.log("DOM chargé");
+
+    // Gestionnaire pour le bouton d'import
+    const importButton = document.getElementById('importButton');
+    const fileInput = document.getElementById('fileInput');
+
+    if (importButton && fileInput) {
+        importButton.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            console.log("Fichier sélectionné");
+            const preview = document.getElementById('preview');
+            const imagePreview = document.getElementById('imagePreview');
+            const file = e.target.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    imagePreview.src = e.target.result;
+                    preview.hidden = false;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    }
+
+    // Gestionnaire pour le bouton photo
+    const photoButton = document.getElementById('photoButton');
+    if (photoButton) {
+        photoButton.addEventListener('click', startCamera);
+    }
+
+    // Gestionnaire pour le bouton de validation
+    document.addEventListener('click', function(e) {
+        if (e.target && e.target.id === 'validateButton') {
+            console.log("Bouton de validation cliqué");
+            validateImage();
+        }
+    });
+});
+
 function startCamera() {
-    navigator.mediaDevices.getUserMedia({ video: true })
-        .then(videoStream => {
-            stream = videoStream;
-            const video = document.getElementById('camera');
-            video.srcObject = stream;
-            video.hidden = false;
-            video.addEventListener('click', takePhoto);
-        })
-        .catch(error => alert('Erreur d\'accès à la caméra: ' + error));
+    console.log("Démarrage caméra");
+
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        alert("Votre navigateur ne supporte pas l'accès à la caméra");
+        return;
+    }
+
+    navigator.mediaDevices.getUserMedia({
+        video: {
+            facingMode: 'environment'
+        }
+    })
+    .then(videoStream => {
+        console.log("Flux vidéo obtenu");
+        stream = videoStream;
+
+        const video = document.createElement('video');
+        video.srcObject = stream;
+        video.autoplay = true;
+        video.id = 'camera-preview';
+
+        const container = document.querySelector('.scan-container');
+        const originalContent = container.innerHTML;
+        container.innerHTML = '';
+        container.appendChild(video);
+
+        const captureBtn = document.createElement('button');
+        captureBtn.textContent = 'CAPTURER';
+        captureBtn.className = 'connexion';
+        captureBtn.onclick = () => takePhoto(originalContent);
+        container.appendChild(captureBtn);
+    })
+    .catch(error => {
+        console.error("Erreur caméra:", error);
+        alert("Erreur d'accès à la caméra : " + error.message);
+    });
 }
 
-function takePhoto() {
-    const video = document.getElementById('camera');
-    const canvas = document.getElementById('canvas');
-    const preview = document.getElementById('preview');
-    const imagePreview = document.getElementById('imagePreview');
+function takePhoto(originalContent) {
+    if (!stream) return;
 
+    const video = document.getElementById('camera-preview');
+    const canvas = document.createElement('canvas');
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
     canvas.getContext('2d').drawImage(video, 0, 0);
 
-    imagePreview.src = canvas.toDataURL('image/jpeg');
-    video.hidden = true;
-    preview.hidden = false;
+    stream.getTracks().forEach(track => track.stop());
 
-    if (stream) {
-        stream.getTracks().forEach(track => track.stop());
-    }
+    document.querySelector('.scan-container').innerHTML = originalContent;
+
+    const imagePreview = document.getElementById('imagePreview');
+    const preview = document.getElementById('preview');
+    imagePreview.src = canvas.toDataURL('image/jpeg');
+    preview.hidden = false;
 }
 
-document.getElementById('fileInput').addEventListener('change', (e) => {
-    const preview = document.getElementById('preview');
-    const imagePreview = document.getElementById('imagePreview');
-    const file = e.target.files[0];
-
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            imagePreview.src = e.target.result;
-            preview.hidden = false;
-        };
-        reader.readAsDataURL(file);
-    }
-});
-
 function validateImage() {
+    console.log("Début de validateImage");
     const imagePreview = document.getElementById('imagePreview');
     const formData = new FormData();
+    console.log("Image source:", imagePreview.src.substring(0, 100) + "..."); // Pour voir le début de l'image
     formData.append('image', imagePreview.src);
 
+    console.log("Envoi de la requête au serveur");
     fetch('/upload-image', {
         method: 'POST',
         body: formData
     })
-    .then(response => response.json())
+    .then(response => {
+        console.log("Réponse reçue", response);
+        return response.json();
+    })
     .then(data => {
+        console.log("Données reçues:", data);
         if (data.success) {
-            window.location.href = '/results';
+            console.log("Upload réussi");
+            window.location.href = '/scan';
         } else {
-            alert('Erreur lors du traitement de l\'image');
+            console.error("Erreur:", data.error);
+            alert('Erreur lors du traitement de l\'image: ' + data.error);
         }
     })
-    .catch(error => alert('Erreur: ' + error));
+    .catch(error => {
+        console.error("Erreur fetch:", error);
+        alert('Erreur : ' + error);
+    });
 }

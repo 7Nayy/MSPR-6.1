@@ -27,11 +27,23 @@ if os.getenv('FLASK_ENV') == 'production':
     Talisman(app,
              force_https=True,
              strict_transport_security=True,
-             session_cookie_secure=True)
+             session_cookie_secure=True,
+             content_security_policy={
+                 'default-src': "'self'",
+                 'script-src': ["'self'", "'unsafe-inline'"],
+                 'style-src': ["'self'", "'unsafe-inline'"],
+                 'img-src': ["'self'", "data:", "blob:"]  # Ajout de cette ligne
+             })
 else:
     Talisman(app,
              force_https=False,
-             session_cookie_secure=False)
+             session_cookie_secure=False,
+             content_security_policy={
+                 'default-src': "'self'",
+                 'script-src': ["'self'", "'unsafe-inline'"],
+                 'style-src': ["'self'", "'unsafe-inline'"],
+                 'img-src': ["'self'", "data:", "blob:"]  # Ajout de cette ligne
+             })
 
 supabase_url = os.getenv('SUPABASE_URL')
 supabase_key = os.getenv('SUPABASE_KEY')
@@ -163,33 +175,61 @@ def scan():
 @login_required
 def upload_image():
     try:
+        app.logger.info("Début de l'upload")
+
+        if 'image' not in request.form:
+            app.logger.error("Pas d'image dans la requête")
+            return jsonify({'success': False, 'error': 'Pas d\'image reçue'})
+
+        # Récupération et décodage de l'image
         image_data = request.form['image']
-
         image_data = image_data.split(',')[1]
-        image = Image.open(BytesIO(base64.b64decode(image_data)))
+        image_bytes = base64.b64decode(image_data)
 
-        if not os.path.exists('uploads'):
-            os.makedirs('uploads')
+        # Génération du nom de fichier
+        timestamp = int(time.time())
+        filename = f"scan_{session['user_id']}_{timestamp}.jpg"
+        user_email = session.get('email').replace('@', '_at_')  # Création d'un nom de dossier sécurisé
 
-        filename = f"scan_{session['user_id']}_{int(time.time())}.jpg"
-        image.save(os.path.join('uploads', filename))
+        try:
+            # Upload dans Dirty_Footprint
+            app.logger.info("Upload vers Dirty_Footprint")
+            response_dirty = supabase.storage \
+                .from_('Dirty_Footprint') \
+                .upload(
+                path=filename,
+                file=image_bytes,
+                file_options={"content-type": "image/jpeg"}
+            )
 
-        session['last_scan'] = filename
+            if hasattr(response_dirty, 'error') and response_dirty.error is not None:
+                raise Exception(f"Erreur Dirty_Footprint: {response_dirty.error}")
 
-        return jsonify({'success': True})
+            # Upload dans UserImg avec dossier utilisateur
+            app.logger.info(f"Upload vers UserImg/{user_email}")
+            user_path = f"{user_email}/{filename}"
+
+            response_user = supabase.storage \
+                .from_('UserImg') \
+                .upload(
+                path=user_path,
+                file=image_bytes,
+                file_options={"content-type": "image/jpeg"}
+            )
+
+            if hasattr(response_user, 'error') and response_user.error is not None:
+                raise Exception(f"Erreur UserImg: {response_user.error}")
+
+            app.logger.info('Upload réussi dans les deux buckets!')
+            return jsonify({'success': True})
+
+        except Exception as e:
+            app.logger.error(f'Erreur lors de l\'upload Supabase : {str(e)}')
+            return jsonify({'success': False, 'error': str(e)})
 
     except Exception as e:
-        app.logger.error(f'Erreur upload image: {str(e)}')
+        app.logger.error(f'Erreur générale : {str(e)}')
         return jsonify({'success': False, 'error': str(e)})
-
-
-@app.route('/results')
-@login_required
-def results():
-    filename = session.get('last_scan')
-    if not filename:
-        return redirect(url_for('scan'))
-    return render_template('results.html', image=filename)
 
 
 @app.route('/logout')
