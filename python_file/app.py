@@ -192,20 +192,7 @@ def upload_image():
         user_email = session.get('email').replace('@', '_at_')  # Création d'un nom de dossier sécurisé
 
         try:
-            # Upload dans Dirty_Footprint
-            app.logger.info("Upload vers Dirty_Footprint")
-            response_dirty = supabase.storage \
-                .from_('Dirty_Footprint') \
-                .upload(
-                path=filename,
-                file=image_bytes,
-                file_options={"content-type": "image/jpeg"}
-            )
-
-            if hasattr(response_dirty, 'error') and response_dirty.error is not None:
-                raise Exception(f"Erreur Dirty_Footprint: {response_dirty.error}")
-
-            # Upload dans UserImg avec dossier utilisateur
+            # Upload uniquement dans UserImg avec dossier utilisateur
             app.logger.info(f"Upload vers UserImg/{user_email}")
             user_path = f"{user_email}/{filename}"
 
@@ -220,7 +207,7 @@ def upload_image():
             if hasattr(response_user, 'error') and response_user.error is not None:
                 raise Exception(f"Erreur UserImg: {response_user.error}")
 
-            app.logger.info('Upload réussi dans les deux buckets!')
+            app.logger.info('Upload réussi!')
             return jsonify({'success': True})
 
         except Exception as e:
@@ -230,7 +217,6 @@ def upload_image():
     except Exception as e:
         app.logger.error(f'Erreur générale : {str(e)}')
         return jsonify({'success': False, 'error': str(e)})
-
 
 @app.route('/logout')
 def logout():
