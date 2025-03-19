@@ -102,9 +102,43 @@ function takePhoto(originalContent) {
     preview.hidden = false;
 }
 
+function displayMessage(message, type) {
+    // Créer ou récupérer l'élément pour le message
+    let messageEl = document.getElementById('status-message');
+    if (!messageEl) {
+        messageEl = document.createElement('div');
+        messageEl.id = 'status-message';
+        document.querySelector('.scan-container').appendChild(messageEl);
+    }
+
+    // Appliquer le style en fonction du type de message
+    messageEl.className = `message ${type}`;
+    messageEl.textContent = message;
+
+    // Faire disparaître le message après 3 secondes si ce n'est pas un message d'info
+    if (type !== 'info') {
+        setTimeout(() => {
+            messageEl.style.opacity = '0';
+            setTimeout(() => {
+                messageEl.remove();
+            }, 500);
+        }, 3000);
+    }
+}
+
 function validateImage() {
     console.log("Début de validateImage");
     const imagePreview = document.getElementById('imagePreview');
+
+    if (!imagePreview || !imagePreview.src || imagePreview.src === '') {
+        console.error("Aucune image à analyser");
+        displayMessage("Aucune image à analyser", "error");
+        return;
+    }
+
+    // Afficher un message de chargement pendant l'analyse
+    displayMessage("Analyse de la trace en cours...", "info");
+
     const formData = new FormData();
     console.log("Image source:", imagePreview.src.substring(0, 100) + "..."); // Pour voir le début de l'image
     formData.append('image', imagePreview.src);
@@ -122,14 +156,23 @@ function validateImage() {
         console.log("Données reçues:", data);
         if (data.success) {
             console.log("Upload réussi");
-            window.location.href = '/scan';
+
+            // Vérifier s'il y a une redirection vers la page de résultats d'analyse
+            if (data.redirect) {
+                console.log("Redirection vers:", data.redirect);
+                window.location.href = data.redirect;
+            } else {
+                // Si pas de redirection, afficher un message de succès
+                displayMessage("Image enregistrée avec succès", "success");
+                window.location.href = '/scan';
+            }
         } else {
             console.error("Erreur:", data.error);
-            alert('Erreur lors du traitement de l\'image: ' + data.error);
+            displayMessage('Erreur: ' + data.error, "error");
         }
     })
     .catch(error => {
         console.error("Erreur fetch:", error);
-        alert('Erreur : ' + error);
+        displayMessage('Erreur de connexion', "error");
     });
 }

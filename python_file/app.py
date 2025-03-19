@@ -11,6 +11,8 @@ from PIL import Image
 from io import BytesIO
 import base64
 import time
+import torch
+from footprint_recognition import initialize_model, footprint_model
 
 load_dotenv()
 
@@ -23,6 +25,14 @@ app.config['SESSION_COOKIE_SECURE'] = os.getenv('FLASK_ENV') == 'production'
 app.config['SESSION_COOKIE_HTTPONLY'] = True
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=1)
 
+# Initialisation du modèle d'IA - Changé pour un fichier .pth
+MODEL_PATH = os.path.join(os.path.dirname(__file__), 'animal_footprint_model_safe.pth')
+try:
+    initialize_model(MODEL_PATH)
+    app.logger.info('Modèle d\'IA PyTorch chargé avec succès')
+except Exception as e:
+    app.logger.error(f'Erreur lors du chargement du modèle d\'IA: {str(e)}')
+
 if os.getenv('FLASK_ENV') == 'production':
     Talisman(app,
              force_https=True,
@@ -32,7 +42,7 @@ if os.getenv('FLASK_ENV') == 'production':
                  'default-src': "'self'",
                  'script-src': ["'self'", "'unsafe-inline'"],
                  'style-src': ["'self'", "'unsafe-inline'"],
-                 'img-src': ["'self'", "data:", "blob:"]  # Ajout de cette ligne
+                 'img-src': ["'self'", "data:", "blob:", "*"]  # Ajout de "*" pour les images externes
              })
 else:
     Talisman(app,
@@ -42,7 +52,7 @@ else:
                  'default-src': "'self'",
                  'script-src': ["'self'", "'unsafe-inline'"],
                  'style-src': ["'self'", "'unsafe-inline'"],
-                 'img-src': ["'self'", "data:", "blob:"]  # Ajout de cette ligne
+                 'img-src': ["'self'", "data:", "blob:", "*"]  # Ajout de "*" pour les images externes
              })
 
 supabase_url = os.getenv('SUPABASE_URL')
@@ -207,8 +217,36 @@ def upload_image():
             if hasattr(response_user, 'error') and response_user.error is not None:
                 raise Exception(f"Erreur UserImg: {response_user.error}")
 
-            app.logger.info('Upload réussi!')
-            return jsonify({'success': True})
+            # Obtenir l'URL publique de l'image
+            image_url = supabase.storage.from_('UserImg').get_public_url(user_path)
+
+            # Analyse de l'image avec l'IA
+            try:
+                app.logger.info("Analyse de l'image avec l'IA")
+
+                # Au lieu de stocker l'image complète en session, stockons seulement l'URL
+                # session['current_image'] = image_data  # Ancienne ligne à commenter ou supprimer
+                session['image_url'] = image_url  # Nouvelle ligne
+
+                # Analyser l'image avec le modèle d'IA
+                result = footprint_model.predict(image_bytes)
+
+                # Stocker les résultats en session (mais pas l'image complète)
+                session['analysis_result'] = {
+                    'animal': result['animal'],
+                    'confidence': result['confidence'] * 100,  # Convertir en pourcentage
+                    'card_url': result['card_url'],
+                    'fun_fact': result['fun_fact']
+                }
+
+                app.logger.info(f"Animal identifié: {result['animal']} avec une confiance de {result['confidence']}")
+
+                # Rediriger vers la page de résultats
+                return jsonify({'success': True, 'redirect': url_for('scan_result')})
+
+            except Exception as e:
+                app.logger.error(f"Erreur lors de l'analyse de l'image: {str(e)}")
+                return jsonify({'success': False, 'error': f"Erreur lors de l'analyse: {str(e)}"})
 
         except Exception as e:
             app.logger.error(f'Erreur lors de l\'upload Supabase : {str(e)}')
@@ -217,6 +255,33 @@ def upload_image():
     except Exception as e:
         app.logger.error(f'Erreur générale : {str(e)}')
         return jsonify({'success': False, 'error': str(e)})
+
+
+# Modifiez également la route scan_result pour utiliser l'URL de l'image au lieu de l'image en base64
+@app.route('/scan_result')
+@login_required
+def scan_result():
+    try:
+        if 'analysis_result' not in session:
+            return redirect(url_for('scan'))
+
+        result = session['analysis_result']
+        # Utilisez l'URL de l'image au lieu de l'image en base64
+        image_url = session.get('image_url', '')
+        email = session.get('email', 'Utilisateur inconnu')
+
+        return render_template('scan_result.html',
+                               email=email,
+                               image_url=image_url,  # Passez l'URL au template
+                               animal=result['animal'],
+                               confidence=result['confidence'],
+                               card_url=result['card_url'],
+                               fun_fact=result['fun_fact'])
+
+    except Exception as e:
+        app.logger.error(f'Erreur lors de l\'affichage des résultats: {str(e)}')
+        return redirect(url_for('scan'))
+
 
 @app.route('/logout')
 def logout():
