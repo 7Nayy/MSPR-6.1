@@ -5,6 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scanner un document</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='scan.css') }}">
+    <style>
+        /* Styles supplémentaires pour la nouvelle interface d'importation */
+        .file-preview {
+            display: flex;
+            align-items: center;
+            background-color: #f5f5f5;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+        }
+        
+        .file-icon {
+            font-size: 24px;
+            color: #3cb748;
+            margin-right: 10px;
+        }
+        
+        .file-name {
+            font-weight: 500;
+            color: #333;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            max-width: 200px;
+        }
+    </style>
 </head>
 <body>
     <div class="entete"></div>
@@ -22,8 +49,15 @@
                 PRENDRE UNE PHOTO
             </button>
 
+            <!-- Élément caché pour stocker les données de l'image -->
+            <input type="hidden" id="hiddenImageData">
+
+            <!-- Nouvelle structure pour la prévisualisation du fichier -->
             <div id="preview" class="preview-zone" hidden>
-                <img id="imagePreview" alt="Aperçu">
+                <div class="file-preview">
+                    <span class="file-icon">📄</span>
+                    <span id="fileName" class="file-name">nom_du_fichier.jpg</span>
+                </div>
                 <button id="validateButton" type="button" class="connexion">VALIDER</button>
             </div>
 

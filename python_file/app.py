@@ -19,7 +19,7 @@ load_dotenv()
 app = Flask(__name__,
             template_folder='../templates',
             static_folder='../static')
-
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16 Mo
 app.secret_key = os.getenv('FLASK_SECRET_KEY')
 app.config['SESSION_COOKIE_SECURE'] = os.getenv('FLASK_ENV') == 'production'
 app.config['SESSION_COOKIE_HTTPONLY'] = True
@@ -187,14 +187,18 @@ def upload_image():
     try:
         app.logger.info("Début de l'upload")
 
-        if 'image' not in request.form:
+        # Vérifier si un fichier a été envoyé
+        if 'image' not in request.files:
             app.logger.error("Pas d'image dans la requête")
             return jsonify({'success': False, 'error': 'Pas d\'image reçue'})
 
-        # Récupération et décodage de l'image
-        image_data = request.form['image']
-        image_data = image_data.split(',')[1]
-        image_bytes = base64.b64decode(image_data)
+        uploaded_file = request.files['image']
+        if not uploaded_file:
+            app.logger.error("Fichier vide")
+            return jsonify({'success': False, 'error': 'Fichier vide'})
+
+        # Lire les données du fichier
+        image_bytes = uploaded_file.read()
 
         # Génération du nom de fichier
         timestamp = int(time.time())
@@ -225,7 +229,6 @@ def upload_image():
                 app.logger.info("Analyse de l'image avec l'IA")
 
                 # Au lieu de stocker l'image complète en session, stockons seulement l'URL
-                # session['current_image'] = image_data  # Ancienne ligne à commenter ou supprimer
                 session['image_url'] = image_url  # Nouvelle ligne
 
                 # Analyser l'image avec le modèle d'IA
@@ -255,7 +258,6 @@ def upload_image():
     except Exception as e:
         app.logger.error(f'Erreur générale : {str(e)}')
         return jsonify({'success': False, 'error': str(e)})
-
 
 # Modifiez également la route scan_result pour utiliser l'URL de l'image au lieu de l'image en base64
 @app.route('/scan_result')
