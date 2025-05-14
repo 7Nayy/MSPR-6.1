@@ -1,94 +1,69 @@
-2025-02-10 17:30:44,082 ERROR: Exception on /galerie [GET] [in /Users/nadimbenkrouidem/miniconda3/lib/python3.12/site-packages/flask/app.py:875]
-Traceback (most recent call last):
-  File "/Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py", line 188, in galerie
-    response = supabase.storage.from_('UserImg').list(
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-TypeError: SyncBucketActionsMixin.list() got an unexpected keyword argument 'search'
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/Users/nadimbenkrouidem/miniconda3/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
-    response = self.full_dispatch_request()
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/nadimbenkrouidem/miniconda3/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/nadimbenkrouidem/miniconda3/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
-    rv = self.dispatch_request()
-         ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/nadimbenkrouidem/miniconda3/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
-    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py", line 76, in decorated_function
-    return f(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^
-  File "/Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py", line 210, in galerie
-    return render_template('galerie.html', error=str(e), images=[])
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/nadimbenkrouidem/miniconda3/lib/python3.12/site-packages/flask/templating.py", line 149, in render_template
-    template = app.jinja_env.get_or_select_template(template_name_or_list)
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/nadimbenkrouidem/miniconda3/lib/python3.12/site-packages/jinja2/environment.py", line 1084, in get_or_select_template
-    return self.get_template(template_name_or_list, parent, globals)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/nadimbenkrouidem/miniconda3/lib/python3.12/site-packages/jinja2/environment.py", line 1013, in get_template
-    return self._load_template(name, globals)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/nadimbenkrouidem/miniconda3/lib/python3.12/site-packages/jinja2/environment.py", line 972, in _load_template
-    template = self.loader.load(self, name, self.make_globals(globals))
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/nadimbenkrouidem/miniconda3/lib/python3.12/site-packages/jinja2/loaders.py", line 138, in load
-    code = environment.compile(source, name, filename)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/nadimbenkrouidem/miniconda3/lib/python3.12/site-packages/jinja2/environment.py", line 768, in compile
-    self.handle_exception(source=source_hint)
-  File "/Users/nadimbenkrouidem/miniconda3/lib/python3.12/site-packages/jinja2/environment.py", line 939, in handle_exception
-    raise rewrite_traceback_stack(source=source)
-  File "/Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/templates/galerie.html", line 33, in template
-    {% endblock %}
-jinja2.exceptions.TemplateSyntaxError: Encountered unknown tag 'endblock'.
-2025-02-10 17:30:44,089 ERROR: Erreur serveur: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application. [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:294]
-2025-02-10 17:31:28,233 INFO: Démarrage de l'application [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:61]
-2025-02-10 17:32:00,735 INFO: Démarrage de l'application [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:61]
-2025-02-10 17:32:27,120 INFO: Démarrage de l'application [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:61]
-2025-02-10 18:34:59,375 INFO: Démarrage de l'application [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:61]
-2025-02-10 18:37:13,247 INFO: Démarrage de l'application [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:61]
-2025-02-10 18:41:42,539 INFO: Démarrage de l'application [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:61]
-2025-02-10 18:42:01,559 INFO: Connexion réussie pour l'utilisateur: nadim.benkrouidem@gmail.com [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:105]
-2025-03-06 13:05:51,825 INFO: Démarrage de l'application [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:61]
-2025-03-06 13:06:01,355 INFO: Connexion réussie pour l'utilisateur: nadim.benkrouidem@gmail.com [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:105]
-2025-03-06 13:06:23,473 INFO: Début de l'upload [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:178]
-2025-03-06 13:06:23,478 INFO: Upload vers Dirty_Footprint [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:196]
-2025-03-06 13:06:23,819 INFO: Upload vers UserImg/nadim.benkrouidem_at_gmail.com [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:209]
-2025-03-06 13:06:24,158 INFO: Upload réussi dans les deux buckets! [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:223]
-2025-03-06 13:09:56,040 INFO: Connexion réussie pour l'utilisateur: nadim.benkrouidem@gmail.com [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:105]
-2025-03-06 13:11:17,877 INFO: Démarrage de l'application [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:61]
-2025-03-06 13:11:25,391 INFO: Connexion réussie pour l'utilisateur: nadim.benkrouidem@gmail.com [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:105]
-2025-03-06 13:11:33,555 INFO: Début de l'upload [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:178]
-2025-03-06 13:11:33,558 INFO: Upload vers UserImg/nadim.benkrouidem_at_gmail.com [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:196]
-2025-03-06 13:11:34,131 INFO: Upload réussi! [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:210]
-2025-03-06 13:22:32,376 INFO: Démarrage de l'application [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:61]
-2025-03-06 13:22:47,608 INFO: Connexion réussie pour l'utilisateur: nadim.benkrouidem@gmail.com [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:105]
-2025-03-06 13:23:02,789 INFO: Début de l'upload [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:178]
-2025-03-06 13:23:02,794 INFO: Upload vers UserImg/nadim.benkrouidem_at_gmail.com [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:196]
-2025-03-06 13:23:03,073 INFO: Upload réussi! [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:210]
-2025-03-06 13:35:01,737 INFO: Déconnexion réussie pour l'utilisateur: nadim.benkrouidem@gmail.com [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:227]
-2025-03-06 14:29:35,145 INFO: Démarrage de l'application [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:71]
-2025-03-06 14:29:53,285 INFO: Connexion réussie pour l'utilisateur: nadim.benkrouidem@gmail.com [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:115]
-2025-03-06 14:30:16,153 INFO: Début de l'upload [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:188]
-2025-03-06 14:30:16,158 INFO: Upload vers UserImg/nadim.benkrouidem_at_gmail.com [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:206]
-2025-03-06 14:30:16,479 INFO: Analyse de l'image avec l'IA [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:222]
-2025-03-06 14:30:16,479 ERROR: Erreur lors de l'analyse de l'image: 'NoneType' object has no attribute 'predict' [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:243]
-2025-03-06 14:30:20,575 INFO: Début de l'upload [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:188]
-2025-03-06 14:30:20,579 INFO: Upload vers UserImg/nadim.benkrouidem_at_gmail.com [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:206]
-2025-03-06 14:30:20,925 INFO: Analyse de l'image avec l'IA [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:222]
-2025-03-06 14:30:20,925 ERROR: Erreur lors de l'analyse de l'image: 'NoneType' object has no attribute 'predict' [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:243]
-2025-03-06 14:30:25,785 INFO: Début de l'upload [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:188]
-2025-03-06 14:30:25,788 INFO: Upload vers UserImg/nadim.benkrouidem_at_gmail.com [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:206]
-2025-03-06 14:30:26,018 INFO: Analyse de l'image avec l'IA [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:222]
-2025-03-06 14:30:26,018 ERROR: Erreur lors de l'analyse de l'image: 'NoneType' object has no attribute 'predict' [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:243]
-2025-03-06 14:30:32,991 INFO: Déconnexion réussie pour l'utilisateur: nadim.benkrouidem@gmail.com [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:285]
-2025-03-09 20:46:31,824 INFO: Démarrage de l'application [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:71]
-2025-03-09 20:48:52,184 INFO: Démarrage de l'application [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:71]
-2025-03-09 20:52:53,903 INFO: Démarrage de l'application [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:71]
+2025-03-09 20:57:28,051 INFO: Démarrage de l'application [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:71]
+2025-03-09 20:58:45,398 INFO: Démarrage de l'application [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:71]
+2025-03-09 21:01:18,228 INFO: Démarrage de l'application [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:71]
+2025-03-09 21:01:51,293 INFO: Connexion réussie pour l'utilisateur: nadim.benkrouidem@gmail.com [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:115]
+2025-03-09 21:02:04,742 INFO: Début de l'upload [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:188]
+2025-03-09 21:02:04,746 INFO: Upload vers UserImg/nadim.benkrouidem_at_gmail.com [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:206]
+2025-03-09 21:02:05,152 INFO: Analyse de l'image avec l'IA [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:222]
+2025-03-09 21:02:05,152 ERROR: Erreur lors de l'analyse de l'image: 'NoneType' object has no attribute 'predict' [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:243]
+2025-03-09 21:02:06,988 INFO: Début de l'upload [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:188]
+2025-03-09 21:02:06,990 INFO: Upload vers UserImg/nadim.benkrouidem_at_gmail.com [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:206]
+2025-03-09 21:02:07,360 INFO: Analyse de l'image avec l'IA [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:222]
+2025-03-09 21:02:07,361 ERROR: Erreur lors de l'analyse de l'image: 'NoneType' object has no attribute 'predict' [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:243]
+2025-03-09 21:02:08,715 INFO: Début de l'upload [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:188]
+2025-03-09 21:02:08,718 INFO: Upload vers UserImg/nadim.benkrouidem_at_gmail.com [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:206]
+2025-03-09 21:02:08,910 INFO: Analyse de l'image avec l'IA [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:222]
+2025-03-09 21:02:08,911 ERROR: Erreur lors de l'analyse de l'image: 'NoneType' object has no attribute 'predict' [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:243]
+2025-03-09 21:06:56,044 INFO: Démarrage de l'application [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:71]
+2025-03-09 21:07:07,936 INFO: Connexion réussie pour l'utilisateur: nadim.benkrouidem@gmail.com [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:115]
+2025-03-09 21:07:18,946 INFO: Début de l'upload [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:188]
+2025-03-09 21:07:18,949 INFO: Upload vers UserImg/nadim.benkrouidem_at_gmail.com [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:206]
+2025-03-09 21:07:19,255 INFO: Analyse de l'image avec l'IA [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:222]
+2025-03-09 21:07:19,701 INFO: Animal identifié: raton_laveur avec une confiance de 0.837 [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:237]
+2025-03-09 21:33:05,239 INFO: Démarrage de l'application [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:71]
+2025-03-09 21:33:20,666 INFO: Connexion réussie pour l'utilisateur: nadim.benkrouidem@gmail.com [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:115]
+2025-03-09 21:33:32,333 INFO: Début de l'upload [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:188]
+2025-03-09 21:33:32,337 INFO: Upload vers UserImg/nadim.benkrouidem_at_gmail.com [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:206]
+2025-03-09 21:33:32,656 INFO: Analyse de l'image avec l'IA [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:222]
+2025-03-09 21:33:32,830 INFO: Animal identifié: Chien avec une confiance de 0.86 [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:237]
+2025-03-09 21:39:00,822 INFO: Démarrage de l'application [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:71]
+2025-03-09 21:39:26,753 INFO: Connexion réussie pour l'utilisateur: nadim.benkrouidem@gmail.com [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:115]
+2025-03-19 12:44:56,311 INFO: Démarrage de l'application [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:71]
+2025-03-19 12:45:04,901 INFO: Connexion réussie pour l'utilisateur: nadim.benkrouidem@gmail.com [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:115]
+2025-03-19 12:45:14,233 INFO: Début de l'upload [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:188]
+2025-03-19 12:45:14,237 INFO: Upload vers UserImg/nadim.benkrouidem_at_gmail.com [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:206]
+2025-03-19 12:45:14,680 INFO: Analyse de l'image avec l'IA [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:225]
+2025-03-19 12:45:15,416 INFO: Animal identifié: Chat avec une confiance de 0.9909999999999999 [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:242]
+2025-03-19 12:45:47,803 INFO: Début de l'upload [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:188]
+2025-03-19 12:45:47,807 INFO: Upload vers UserImg/nadim.benkrouidem_at_gmail.com [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:206]
+2025-03-19 12:45:48,237 INFO: Analyse de l'image avec l'IA [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:225]
+2025-03-19 12:45:48,584 INFO: Animal identifié: Rat avec une confiance de 0.9169999999999999 [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:242]
+2025-03-19 12:47:26,172 INFO: Démarrage de l'application [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:71]
+2025-03-19 12:47:34,117 INFO: Connexion réussie pour l'utilisateur: nadim.benkrouidem@gmail.com [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:115]
+2025-03-19 12:48:06,645 INFO: Connexion réussie pour l'utilisateur: nadim.benkrouidem@gmail.com [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:115]
+2025-03-19 12:48:18,222 INFO: Début de l'upload [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:188]
+2025-03-19 12:48:18,227 INFO: Upload vers UserImg/nadim.benkrouidem_at_gmail.com [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:206]
+2025-03-19 12:48:18,607 INFO: Analyse de l'image avec l'IA [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:225]
+2025-03-19 12:48:18,829 INFO: Animal identifié: Puma avec une confiance de 0.9309999999999999 [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:242]
+2025-03-19 16:03:35,458 INFO: Démarrage de l'application [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:71]
+2025-03-19 16:04:12,423 INFO: Connexion réussie pour l'utilisateur: nadim.benkrouidem@gmail.com [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:115]
+2025-03-19 16:04:30,187 INFO: Début de l'upload [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:188]
+2025-03-19 16:04:30,192 INFO: Upload vers UserImg/nadim.benkrouidem_at_gmail.com [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:206]
+2025-03-19 16:04:30,520 INFO: Analyse de l'image avec l'IA [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:225]
+2025-03-19 16:04:30,858 INFO: Animal identifié: Loup avec une confiance de 0.7629999999999999 [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:242]
+2025-03-19 17:36:24,651 INFO: Déconnexion réussie pour l'utilisateur: nadim.benkrouidem@gmail.com [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:292]
+2025-03-21 11:58:40,034 INFO: Démarrage de l'application [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:71]
+2025-03-21 12:00:25,975 INFO: Connexion réussie pour l'utilisateur: nadim.benkrouidem@gmail.com [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:115]
+2025-03-21 12:48:35,150 INFO: Démarrage de l'application [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:71]
+2025-03-21 12:50:33,480 INFO: Démarrage de l'application [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:71]
+2025-03-21 12:50:41,140 INFO: Connexion réussie pour l'utilisateur: nadim.benkrouidem@gmail.com [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:115]
+2025-03-21 13:22:45,697 INFO: Démarrage de l'application [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:71]
+2025-03-21 13:22:53,987 INFO: Connexion réussie pour l'utilisateur: nadim.benkrouidem@gmail.com [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:115]
+2025-03-21 13:24:22,325 INFO: Démarrage de l'application [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:71]
+2025-03-21 13:24:29,687 INFO: Connexion réussie pour l'utilisateur: nadim.benkrouidem@gmail.com [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:115]
+2025-03-21 13:24:35,503 INFO: Déconnexion réussie pour l'utilisateur: nadim.benkrouidem@gmail.com [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:292]
+2025-03-21 13:24:46,157 INFO: Connexion réussie pour l'utilisateur: nadim.benkrouidem@gmail.com [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:115]
+2025-04-07 14:36:46,123 INFO: Démarrage de l'application [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:71]
+2025-04-07 14:36:56,256 ERROR: Erreur de connexion: [Errno 8] nodename nor servname provided, or not known [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:123]
+2025-04-07 15:21:21,793 INFO: Démarrage de l'application [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:71]
+2025-04-07 15:21:30,514 INFO: Connexion réussie pour l'utilisateur: nadim.benkrouidem@gmail.com [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:115]
