@@ -1,0 +1,56 @@
+version: '3'
+
+services:
+  wildaware-app:
+    image: ${DOCKER_REGISTRY}/wildaware:${TAG:-latest}
+    restart: always
+    ports:
+      - "${PORT:-5001}:5000"
+    volumes:
+      - ./logs:/app/logs
+    environment:
+      - FLASK_ENV=production
+      - FLASK_DEBUG=False
+      - FLASK_SECRET_KEY=${FLASK_SECRET_KEY}
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_KEY=${SUPABASE_KEY}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 5s
+    networks:
+      - wildaware-network
+    deploy:
+      replicas: ${REPLICAS:-1}
+      update_config:
+        parallelism: 1
+        delay: 10s
+        order: start-first
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1G
+        reservations:
+          cpus: '0.25'
+          memory: 500M
+
+  nginx:
+    image: nginx:latest
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/ssl:/etc/nginx/ssl
+      - ./nginx/www:/var/www/html
+    depends_on:
+      - wildaware-app
+    networks:
+      - wildaware-network
+
+networks:
+  wildaware-network:
+    driver: bridge

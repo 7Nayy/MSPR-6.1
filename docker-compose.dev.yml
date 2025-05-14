@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  wildaware-app-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "5001:5000"
+    volumes:
+      - ./:/app
+      - ./logs:/app/logs
+    environment:
+      - FLASK_ENV=development
+      - FLASK_DEBUG=True
+      - FLASK_SECRET_KEY=EPSI_DEV
+      - SUPABASE_URL=https://lekndkijyvsrtzpssejb.supabase.co
+      - SUPABASE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imxla25ka2lqeXZzcnR6cHNzZWpiIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTczNzk3MTUzNiwiZXhwIjoyMDUzNTQ3NTM2fQ.pjeE5lfQ_NXPWakV7UMvU2RWsHKnqZBtFKx4t32Z0lA

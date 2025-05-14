@@ -1,0 +1,24 @@
+FROM python:3.10-slim
+
+WORKDIR /app
+
+# Copier les fichiers de dépendances
+COPY requirements.txt .
+
+# Installer les dépendances + outils de développement
+RUN pip install --no-cache-dir -r requirements.txt && \
+    pip install pytest pytest-flask flake8 watchdog
+
+# Le reste des fichiers sera monté en volume pour le développement
+
+# Exposer le port sur lequel l'application fonctionne
+EXPOSE 5000
+
+# Définir les variables d'environnement
+ENV FLASK_APP=python_file/app.py
+ENV FLASK_ENV=development
+ENV FLASK_DEBUG=True
+ENV PYTHONPATH=/app
+
+# Commande pour démarrer l'application avec reload automatique
+CMD ["python", "-m", "watchdog.watchmedo", "auto-restart", "--directory=.", "--pattern=*.py", "--recursive", "--", "python", "python_file/app.py"]
