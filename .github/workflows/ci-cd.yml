@@ -2,9 +2,9 @@ name: WildAware CI/CD
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [ prod, pre-prod ]
   pull_request:
-    branches: [ main, develop ]
+    branches: [ prod, pre-prod ]
 
 jobs:
   test:

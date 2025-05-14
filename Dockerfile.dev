@@ -21,4 +21,4 @@ ENV FLASK_DEBUG=True
 ENV PYTHONPATH=/app
 
 # Commande pour démarrer l'application avec reload automatique
-CMD ["python", "-m", "watchdog", "--patterns=*.py", "--recursive", "--command=python python_file/app.py", "."]
+CMD ["python", "-m", "watchdog.watchmedo", "auto-restart", "--directory=.", "--pattern=*.py", "--recursive", "--", "python", "python_file/app.py"]
