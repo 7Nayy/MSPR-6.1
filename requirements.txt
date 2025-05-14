@@ -2,8 +2,8 @@ Flask==2.3.3
 supabase==2.0.3
 flask-talisman==1.0.0
 python-dotenv==1.0.0
-Pillow==10.0.0
-torch==2.0.1
-torchvision==0.15.2
+Pillow==10.3.0  # Mise à jour depuis 10.0.0
+torch==2.2.0    # Mise à jour depuis 2.0.1
+torchvision==0.17.0  # Mise à jour pour correspondre à torch 2.2.0
 opencv-python==4.8.0.76
 numpy==1.25.2
