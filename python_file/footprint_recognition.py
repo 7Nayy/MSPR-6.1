@@ -164,7 +164,7 @@ def initialize_model(model_path=None):
     Args:
         model_path (str, optional): Ignoré
     """
-    global footprint_model
+    return footprint_model
     # Le modèle est déjà initialisé, donc on ne fait rien ici
     print(f"L'initialisation du modèle a été ignorée, utilisation du modèle factice.")
     return footprint_model
