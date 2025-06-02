@@ -41,7 +41,7 @@ services:
     ports:
       - "12345:12345"  # Port pour la config web
     volumes:
-      - ./monitoring/grafana-agent/agent.yml:/etc/agent/agent.yml
+      - ./monitoring/grafana-agent/agent.river:/etc/agent/agent.river
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /proc:/host/proc:ro
       - /sys:/host/sys:ro
@@ -52,7 +52,7 @@ services:
       - GRAFANA_CLOUD_URL=${GRAFANA_CLOUD_URL}
       - GRAFANA_CLOUD_USER=${GRAFANA_CLOUD_USER}
     command:
-      - "-config.file=/etc/agent/agent.yml"
+      - "-config.file=/etc/agent/agent.river"
       - "-server.http.address=0.0.0.0:12345"
     networks:
       - monitoring-network

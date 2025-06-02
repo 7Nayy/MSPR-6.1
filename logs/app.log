@@ -34,3 +34,5 @@
 2025-06-03 00:20:21,564 INFO: Analyse de l'image avec l'IA [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/tests_simple/../python_file/app.py:229]
 2025-06-03 00:20:21,564 INFO: Animal identifié: Lynx avec une confiance de 0.92 [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/tests_simple/../python_file/app.py:245]
 2025-06-03 00:20:21,567 INFO: Déconnexion réussie pour l'utilisateur: integration@test.com [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/tests_simple/../python_file/app.py:294]
+2025-06-02 22:45:01,348 INFO: Démarrage de l'application [in /app/python_file/app.py:71]
+2025-06-02 22:49:55,483 INFO: Démarrage de l'application [in /app/python_file/app.py:71]
