@@ -4,7 +4,7 @@ import torchvision.transforms as transforms
 from PIL import Image
 import io
 import os
-from supabase_conn import supabase
+from python_file.supabase_conn import supabase
 import random
 import hashlib
 

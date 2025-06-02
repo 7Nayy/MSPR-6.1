@@ -12,7 +12,7 @@ from io import BytesIO
 import base64
 import time
 import torch
-from footprint_recognition import initialize_model, footprint_model
+from python_file.footprint_recognition import initialize_model, footprint_model
 
 load_dotenv()
 
