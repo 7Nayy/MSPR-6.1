@@ -1,3 +1,4 @@
 2025-04-10 10:26:06,718 INFO: Upload vers UserImg/diallodouba17_at_gmail.com [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:210]
 2025-04-10 10:26:07,031 INFO: Analyse de l'image avec l'IA [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:229]
 2025-04-10 10:26:07,208 INFO: Animal identifié: Raton laveur avec une confiance de 0.7 [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:245]
+2025-06-02 20:57:42,231 INFO: Démarrage de l'application [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:71]

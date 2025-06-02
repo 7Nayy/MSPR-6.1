@@ -1,0 +1,83 @@
+version: '3.8'
+
+services:
+  # Application WildAware
+  wildaware-app:
+    build: .
+    ports:
+      - "5001:5000"
+    volumes:
+      - ./logs:/app/logs
+    environment:
+      - FLASK_ENV=production
+      - FLASK_DEBUG=False
+      - FLASK_SECRET_KEY=${FLASK_SECRET_KEY:-EPSI}
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_KEY=${SUPABASE_KEY}
+    networks:
+      - monitoring-network
+    restart: unless-stopped
+
+  # Exporteur WildAware (envoie les métriques à Grafana Cloud)
+  wildaware-exporter:
+    build:
+      context: ./monitoring/exporters
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./logs:/app/logs:ro
+    environment:
+      - APP_URL=http://wildaware-app:5000
+      - LOG_PATH=/app/logs/app.log
+    networks:
+      - monitoring-network
+    depends_on:
+      - wildaware-app
+    restart: unless-stopped
+
+  # Grafana Agent (collecte et envoie vers Grafana Cloud)
+  grafana-agent:
+    image: grafana/agent:latest
+    ports:
+      - "12345:12345"  # Port pour la config web
+    volumes:
+      - ./monitoring/grafana-agent/agent.yml:/etc/agent/agent.yml
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    environment:
+      - AGENT_MODE=flow
+      - GRAFANA_CLOUD_API_KEY=${GRAFANA_CLOUD_API_KEY}
+      - GRAFANA_CLOUD_URL=${GRAFANA_CLOUD_URL}
+      - GRAFANA_CLOUD_USER=${GRAFANA_CLOUD_USER}
+    command:
+      - "-config.file=/etc/agent/agent.yml"
+      - "-server.http.address=0.0.0.0:12345"
+    networks:
+      - monitoring-network
+    depends_on:
+      - wildaware-exporter
+    restart: unless-stopped
+
+  # Node Exporter pour les métriques système
+  node-exporter:
+    image: prom/node-exporter:latest
+    ports:
+      - "9100:9100"
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.rootfs=/rootfs'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+    networks:
+      - monitoring-network
+    restart: unless-stopped
+
+networks:
+  monitoring-network:
+    driver: bridge

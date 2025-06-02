@@ -5,11 +5,8 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . .
+COPY wildaware_exporter.py .
 
-EXPOSE 5000
+EXPOSE 9090
 
-ENV FLASK_APP=python_file/app.py
-ENV PYTHONPATH=/app
-
-CMD ["python", "python_file/app.py"]
+CMD ["python", "wildaware_exporter.py"]
