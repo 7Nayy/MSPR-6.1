@@ -1,24 +1,27 @@
-version: '3.8'
+# Docker Compose pour monitoring WildAware avec Grafana Cloud
 
 services:
   # Application WildAware
   wildaware-app:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "5001:5000"
     volumes:
       - ./logs:/app/logs
     environment:
+      # Variables explicites pour éviter les problèmes
       - FLASK_ENV=production
       - FLASK_DEBUG=False
-      - FLASK_SECRET_KEY=${FLASK_SECRET_KEY:-EPSI}
-      - SUPABASE_URL=${SUPABASE_URL}
-      - SUPABASE_KEY=${SUPABASE_KEY}
+      - FLASK_SECRET_KEY=EPSI
+      - SUPABASE_URL=https://lekndkijyvsrtzpssejb.supabase.co
+      - SUPABASE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imxla25ka2lqeXZzcnR6cHNzZWpiIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTczNzk3MTUzNiwiZXhwIjoyMDUzNTQ3NTM2fQ.pjeE5lfQ_NXPWakV7UMvU2RWsHKnqZBtFKx4t32Z0lA
     networks:
       - monitoring-network
     restart: unless-stopped
 
-  # Exporteur WildAware (envoie les métriques à Grafana Cloud)
+  # Exporteur WildAware
   wildaware-exporter:
     build:
       context: ./monitoring/exporters
@@ -35,34 +38,10 @@ services:
       - wildaware-app
     restart: unless-stopped
 
-  # Grafana Agent (collecte et envoie vers Grafana Cloud)
-  grafana-agent:
-    image: grafana/agent:latest
-    ports:
-      - "12345:12345"  # Port pour la config web
-    volumes:
-      - ./monitoring/grafana-agent/agent.river:/etc/agent/agent.river
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - /proc:/host/proc:ro
-      - /sys:/host/sys:ro
-      - /:/rootfs:ro
-    environment:
-      - AGENT_MODE=flow
-      - GRAFANA_CLOUD_API_KEY=${GRAFANA_CLOUD_API_KEY}
-      - GRAFANA_CLOUD_URL=${GRAFANA_CLOUD_URL}
-      - GRAFANA_CLOUD_USER=${GRAFANA_CLOUD_USER}
-    command:
-      - "-config.file=/etc/agent/agent.river"
-      - "-server.http.address=0.0.0.0:12345"
-    networks:
-      - monitoring-network
-    depends_on:
-      - wildaware-exporter
-    restart: unless-stopped
-
-  # Node Exporter pour les métriques système
+  # Node Exporter
   node-exporter:
-    image: prom/node-exporter:latest
+    image: prom/node-exporter:v1.6.1
+    container_name: node-exporter-wildaware
     ports:
       - "9100:9100"
     volumes:
@@ -74,9 +53,42 @@ services:
       - '--path.rootfs=/rootfs'
       - '--path.sysfs=/host/sys'
       - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+      - '--web.listen-address=0.0.0.0:9100'
     networks:
       - monitoring-network
     restart: unless-stopped
+
+  # Grafana Agent
+  grafana-agent:
+    image: grafana/agent:v0.38.1
+    container_name: grafana-agent-wildaware
+    ports:
+      - "12345:12345"
+    volumes:
+      - ./monitoring/grafana-agent/agent.river:/etc/agent/config.river:ro
+      - grafana-agent-data:/etc/agent/data
+    environment:
+      - AGENT_MODE=flow
+      # Variables explicites pour Grafana Cloud
+      - GRAFANA_CLOUD_API_KEY=glc_eyJvIjoiMTAwNjM1NiIsIm4iOiJzdGFjay04MDcwMzktaG0tcmVhZC1tc3ByX21ldHJpY3MiLCJrIjoiODg2ME9GbDI3SG5LemtjMnVjaWM5RDgzIiwibSI6eyJyIjoicHJvZC1ldS13ZXN0LTIifX0=
+      - GRAFANA_CLOUD_URL=https://prometheus-prod-01-eu-west-0.grafana.net/api/prom/push
+      - GRAFANA_CLOUD_USER=1006356
+      - HOSTNAME=wildaware-agent
+    command:
+      - "run"
+      - "/etc/agent/config.river"
+      - "--server.http.listen-addr=0.0.0.0:12345"
+      - "--disable-reporting"
+    networks:
+      - monitoring-network
+    depends_on:
+      - wildaware-exporter
+      - node-exporter
+    restart: unless-stopped
+
+volumes:
+  grafana-agent-data:
+    driver: local
 
 networks:
   monitoring-network:
