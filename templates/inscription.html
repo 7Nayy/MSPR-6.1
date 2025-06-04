@@ -5,34 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inscription - WildAware</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='inscription.css') }}">
+    <meta name="description" content="Page d'inscription à l'application WildAware">
 </head>
 <body>
-    <div class="entete"></div>
-    <div class="corps">
-        <form class="connexion-form" method="POST" action="{{ url_for('inscription') }}">
-            <div class="form-group">
-                <label for="username">Email</label>
-                <input type="email" id="username" name="username" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Mot de passe</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            <div class="form-group">
-                <label for="confirm_password">Confirmation du mot de passe</label>
-                <input type="password" id="confirm_password" name="confirm_password" required>
-            </div>
-            {% if error %}
-            <div class="error-message" style="color: red;">
-                {{ error }}
-            </div>
-            {% endif %}
-            <button type="submit" class="inscription">S'INSCRIRE</button>
-            <button type="button" class="accueil">
-                <a href="{{ url_for('index') }}">⬅️</a>
-            </button>
-        </form>
-    </div>
+    <header>
+        <div class="entete" role="banner" aria-label="Logo WildAware"></div>
+    </header>
+    <main>
+        <div class="corps">
+            <form class="connexion-form" method="POST" action="{{ url_for('inscription') }}" aria-labelledby="form-title">
+                <h1 id="form-title">Inscription</h1>
+                <div class="form-group">
+                    <label for="username">Adresse email</label>
+                    <input type="email" id="username" name="username" required aria-required="true" autocomplete="email">
+                    <div class="form-hint">Exemple: nom@domaine.com</div>
+                </div>
+                <div class="form-group">
+                    <label for="password">Mot de passe</label>
+                    <input type="password" id="password" name="password" required aria-required="true" autocomplete="new-password" minlength="8" aria-describedby="password-hint">
+                    <div id="password-hint" class="form-hint">Le mot de passe doit contenir au moins 8 caractères</div>
+                </div>
+                <div class="form-group">
+                    <label for="confirm_password">Confirmation du mot de passe</label>
+                    <input type="password" id="confirm_password" name="confirm_password" required aria-required="true" autocomplete="new-password">
+                </div>
+                {% if error %}
+                <div class="error-message" role="alert">
+                    {{ error }}
+                </div>
+                {% endif %}
+                <div class="form-actions">
+                    <button type="submit" class="inscription">S'INSCRIRE</button>
+                    <a href="{{ url_for('index') }}" class="accueil" aria-label="Retour à l'accueil">⬅️ Retour</a>
+                </div>
+            </form>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 WildAware - Application d'identification de traces d'animaux</p>
+    </footer>
 
     <script>
         document.querySelector('form').addEventListener('submit', function(event) {
@@ -41,7 +52,22 @@
 
             if (password !== confirmPassword) {
                 event.preventDefault();
-                alert('Les mots de passe ne correspondent pas !');
+                // Remplacer l'alerte par un message d'erreur accessible
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'error-message';
+                errorDiv.setAttribute('role', 'alert');
+                errorDiv.textContent = 'Les mots de passe ne correspondent pas !';
+                
+                // Supprimer les messages d'erreur précédents
+                const existingErrors = document.querySelectorAll('.error-message');
+                existingErrors.forEach(el => el.remove());
+                
+                // Ajouter le nouveau message d'erreur avant le bouton de soumission
+                const submitButton = document.querySelector('.inscription');
+                submitButton.parentNode.insertBefore(errorDiv, submitButton);
+                
+                // Mettre le focus sur le champ de confirmation
+                document.getElementById('confirm_password').focus();
             }
         });
     </script>

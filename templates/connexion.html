@@ -3,37 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connexion</title>
+    <title>Connexion - WildAware</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='connexion.css') }}">
-    <style>
-        .entete {
-            background-image: url("{{ url_for('static', filename='Design/wildaware-high-resolution-color-logo.png') }}");
-            background-size: contain;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-    </style>
+    <meta name="description" content="Page de connexion à l'application WildAware">
 </head>
 <body>
-    <div class="entete"></div>
-    <div class="corps">
-        <form class="connexion-form" method="POST" action="{{ url_for('login') }}">
-            <div class="form-group">
-                <label for="username">Nom d'utilisateur</label>
-                <input type="email" id="username" name="username" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Mot de passe</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            {% if error %}
-            <div class="error-message" style="color: red;">
-                {{ error }}
-            </div>
-            {% endif %}
-            <button type="submit" class="connexion">CONNEXION</button>
-            <button type="button" class="accueil"><a href="{{ url_for('index') }}">⬅️</a></button>
-        </form>
-    </div>
+    <header>
+        <div class="entete" role="banner" aria-label="Logo WildAware"></div>
+    </header>
+    <main>
+        <div class="corps">
+            <form class="connexion-form" method="POST" action="{{ url_for('login') }}" aria-labelledby="form-title">
+                <h1 id="form-title">Connexion</h1>
+                <div class="form-group">
+                    <label for="username">Adresse email</label>
+                    <input type="email" id="username" name="username" required aria-required="true" autocomplete="email">
+                </div>
+                <div class="form-group">
+                    <label for="password">Mot de passe</label>
+                    <input type="password" id="password" name="password" required aria-required="true" autocomplete="current-password">
+                </div>
+                {% if error %}
+                <div class="error-message" role="alert">
+                    {{ error }}
+                </div>
+                {% endif %}
+                <div class="form-actions">
+                    <button type="submit" class="connexion">CONNEXION</button>
+                    <a href="{{ url_for('index') }}" class="accueil" aria-label="Retour à l'accueil">⬅️ Retour</a>
+                </div>
+            </form>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 WildAware - Application d'identification de traces d'animaux</p>
+    </footer>
 </body>
 </html>

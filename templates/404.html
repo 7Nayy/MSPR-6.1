@@ -1,10 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>ERROR 404</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page non trouvée - WildAware</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='accueil.css') }}">
+    <style>
+        .error-container {
+            text-align: center;
+            padding: 2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .error-code {
+            font-size: 4rem;
+            color: #3cb748;
+            margin-bottom: 1rem;
+        }
+        .error-message {
+            margin-bottom: 2rem;
+        }
+    </style>
 </head>
 <body>
-
+    <header>
+        <div class="entete" role="banner" aria-label="Logo WildAware"></div>
+    </header>
+    <main>
+        <div class="error-container">
+            <div class="error-code" role="heading" aria-level="1">404</div>
+            <div class="error-message">
+                <h2>Page non trouvée</h2>
+                <p>La page que vous recherchez n'existe pas ou a été déplacée.</p>
+            </div>
+            <a href="{{ url_for('index') }}" class="connexion" role="button">Retour à l'accueil</a>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 WildAware - Application d'identification de traces d'animaux</p>
+    </footer>
 </body>
 </html>

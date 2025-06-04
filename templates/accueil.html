@@ -5,16 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accueil - WildAware</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='accueil.css') }}">
+    <!-- Ajout de la description pour les moteurs de recherche -->
+    <meta name="description" content="Application WildAware pour identifier les traces d'animaux">
 </head>
 <body>
-    <div class="entete"></div>
-    <div class="corps">
-        <button class="connexion">
-            <a href="{{ url_for('login') }}">CONNEXION</a>
-        </button>
-        <button class="inscription">
-            <a href="{{ url_for('inscription') }}">INSCRIPTION</a>
-        </button>
-    </div>
+    <header>
+        <!-- Ajout d'un texte alternatif pour l'image du logo -->
+        <div class="entete" role="banner" aria-label="Logo WildAware"></div>
+    </header>
+    <main>
+        <div class="corps">
+            <!-- Remplacement des boutons avec liens par des liens stylisés -->
+            <a href="{{ url_for('login') }}" class="connexion" role="button">CONNEXION</a>
+            <a href="{{ url_for('inscription') }}" class="inscription" role="button">INSCRIPTION</a>
+        </div>
+    </main>
+    <!-- Ajout d'un pied de page -->
+    <footer>
+        <p>&copy; 2024 WildAware - Application d'identification de traces d'animaux</p>
+    </footer>
 </body>
 </html>

@@ -3,55 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Résultat de l'analyse</title>
+    <title>Résultat de l'analyse - WildAware</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='scan.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='info.css') }}">
+    <meta name="description" content="Résultat de l'analyse d'une trace d'animal avec WildAware">
 </head>
 <body>
     <div class="container">
-        <div class="header">
+        <header class="header">
             <h1>Trace identifiée !</h1>
             <div class="user-info">
-                <p>Connecté en tant que : {{ email }}</p>
+                <p>Connecté en tant que : <span>{{ email }}</span></p>
                 <a href="{{ url_for('logout') }}" class="logout-btn">Déconnexion</a>
             </div>
-        </div>
+        </header>
 
-        <div class="result-container">
-            <div class="image-container">
-                <img src="{{ image_url }}" alt="Trace scannée" class="scanned-image">
+        <main>
+            <div class="result-container" role="region" aria-label="Résultat de l'analyse">
+                <div class="image-container">
+                    <img src="{{ image_url }}" alt="Trace d'animal analysée" class="scanned-image">
+                </div>
+
+                <div class="animal-info">
+                    <h2>Animal identifié : {{ animal }}</h2>
+                    <p class="confidence">Confiance : <span>{{ "%.1f"|format(confidence) }}%</span></p>
+                </div>
+
+                {% if card_url %}
+                <div class="card-container">
+                    <img src="{{ card_url }}" alt="Carte d'information sur {{ animal }}" class="animal-card">
+                </div>
+                {% endif %}
+
+                <div class="fun-fact">
+                    <h3>Le saviez-vous ?</h3>
+                    <p>{{ fun_fact }}</p>
+                </div>
             </div>
 
-            <div class="animal-info">
-                <h2>Animal identifié : {{ animal }}</h2>
-                <p class="confidence">Confiance : {{ "%.1f"|format(confidence) }}%</p>
+            <div class="actions">
+                <a href="{{ url_for('scan') }}" class="button">Scanner une autre trace</a>
+                <a href="{{ url_for('accueil') }}" class="button secondary">Retour à l'accueil</a>
             </div>
-
-            {% if card_url %}
-            <div class="card-container">
-                <img src="{{ card_url }}" alt="Carte de {{ animal }}" class="animal-card">
-            </div>
-            {% endif %}
-
-            <div class="fun-fact">
-                <h3>Le saviez-vous ?</h3>
-                <p>{{ fun_fact }}</p>
-            </div>
-        </div>
-
-        <div class="actions">
-            <a href="{{ url_for('scan') }}" class="button">Scanner une autre trace</a>
-            <a href="{{ url_for('accueil') }}" class="button secondary">Retour à l'accueil</a>
-        </div>
+        </main>
+        
+        <footer>
+            <p>&copy; 2024 WildAware - Application d'identification de traces d'animaux</p>
+        </footer>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Animation d'apparition des résultats
+            // Animation d'apparition des résultats avec délai réduit pour accessibilité
             const resultContainer = document.querySelector('.result-container');
             setTimeout(() => {
                 resultContainer.classList.add('visible');
-            }, 300);
+            }, 100); // Réduit à 100ms pour une meilleure réactivité
         });
     </script>
 </body>

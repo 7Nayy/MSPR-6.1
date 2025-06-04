@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}Connexion - WildLens{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+        <div class="card border-0 shadow-lg">
+            <div class="card-body p-5">
+                <div class="text-center mb-4">
+                    <img src="{{ url_for('static', filename='img/wildlens-logo.png') }}" alt="WildLens Logo" height="60" class="mb-3">
+                    <h2 class="fw-bold">Connexion</h2>
+                    <p class="text-muted">Accédez à votre compte WildLens</p>
+                </div>
+                
+                {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+                {% endif %}
+                
+                <form method="post" action="{{ url_for('login') }}">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Email</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light"><i class="fas fa-envelope"></i></span>
+                            <input type="email" class="form-control" id="username" name="username" placeholder="votre@email.com" required>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="password" class="form-label">Mot de passe</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light"><i class="fas fa-lock"></i></span>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
+                        <div class="mt-2 text-end">
+                            <a href="{{ url_for('reset_password') }}" class="text-decoration-none text-muted small">Mot de passe oublié ?</a>
+                        </div>
+                    </div>
+                    
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-success">Se connecter</button>
+                    </div>
+                    
+                    <div class="text-center mt-4">
+                        <p class="mb-0">Pas encore de compte ? <a href="{{ url_for('inscription') }}" class="text-success">S'inscrire</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+<div class="mt-2 text-end">
+    <a href="{{ url_for('reset_password') }}" class="text-decoration-none text-muted small">Mot de passe oublié ?</a>
+</div>

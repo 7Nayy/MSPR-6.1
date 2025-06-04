@@ -13,3 +13,8 @@
 2025-05-14 10:10:10,636 INFO: Upload vers UserImg/nbenkrouidem78_at_gmail.com [in /app/python_file/app.py:210]
 2025-05-14 10:10:11,201 INFO: Analyse de l'image avec l'IA [in /app/python_file/app.py:229]
 2025-05-14 10:10:11,445 INFO: Animal identifiÃ©: Lynx avec une confiance de 0.7959999999999999 [in /app/python_file/app.py:245]
+2025-06-04 01:43:18,428 INFO: Démarrage de l'application [in C:\MSPR\MSPR-6.1\python_file\app.py:71]
+2025-06-04 01:43:42,021 INFO: Connexion réussie pour l'utilisateur: masseyni.thiam@ecoles-epsi.net [in C:\MSPR\MSPR-6.1\python_file\app.py:115]
+2025-06-04 02:01:03,742 INFO: Démarrage de l'application [in C:\MSPR\MSPR-6.1\python_file\app.py:71]
+2025-06-04 02:01:25,549 ERROR: Erreur de connexion: Invalid login credentials [in C:\MSPR\MSPR-6.1\python_file\app.py:123]
+2025-06-04 02:01:41,496 INFO: Connexion réussie pour l'utilisateur: masseyni.thiam@ecoles-epsi.net [in C:\MSPR\MSPR-6.1\python_file\app.py:115]

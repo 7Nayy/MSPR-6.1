@@ -1,0 +1,247 @@
+/* Variables globales */
+:root {
+    /* Couleurs principales */
+    --primary: #198754;
+    --primary-dark: #146c43;
+    --primary-light: #d1e7dd;
+    --secondary: #6c757d;
+    --dark: #212529;
+    --light: #f8f9fa;
+    --success: #198754;
+    --danger: #dc3545;
+    --warning: #ffc107;
+    --info: #0dcaf0;
+    
+    /* Effets */
+    --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 15px rgba(0, 0, 0, 0.15);
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --radius-circle: 50%;
+    --transition: all 0.3s ease;
+}
+
+/* Base - Optimisé pour mobile */
+body {
+    font-family: 'Poppins', sans-serif;
+    color: var(--dark);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--light);
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+    line-height: 1.5;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+}
+
+main {
+    flex: 1;
+    padding: 1rem 0;
+}
+
+a {
+    color: var(--primary);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+a:hover, a:active {
+    color: var(--primary-dark);
+}
+
+/* Layout - Adapté pour mobile */
+.container {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 1rem;
+    box-sizing: border-box;
+}
+
+/* Header - Style mobile */
+header {
+    background-color: white;
+    box-shadow: var(--shadow-sm);
+    padding: 0.8rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+}
+
+.logo {
+    height: 50px;
+    width: auto;
+    object-fit: contain;
+}
+
+.brand h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: var(--primary);
+}
+
+.tagline {
+    margin: 0;
+    font-size: 0.8rem;
+    color: var(--secondary);
+}
+
+/* Boutons - Optimisés pour le toucher */
+.btn {
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    border-radius: var(--radius-sm);
+    font-weight: 500;
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transition);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    min-height: 44px;
+    min-width: 44px;
+    margin: 0.3rem;
+    border: none;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: white;
+}
+
+.btn-primary:hover, .btn-primary:active {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-outline {
+    background-color: transparent;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+}
+
+.btn-outline:hover, .btn-outline:active {
+    background-color: var(--primary);
+    color: white;
+}
+
+/* Cartes */
+.card {
+    background-color: white;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    transition: var(--transition);
+    margin-bottom: 1rem;
+}
+
+.card:active {
+    transform: scale(0.98);
+}
+
+.card-body {
+    padding: 1.2rem;
+}
+
+/* Formulaires - Adaptés pour mobile */
+.form-group {
+    margin-bottom: 1.2rem;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid #ddd;
+    border-radius: var(--radius-sm);
+    font-size: 1rem;
+    transition: var(--transition);
+    -webkit-appearance: none;
+    appearance: none;
+    box-sizing: border-box;
+    min-height: 44px;
+}
+
+.form-control:focus {
+    border-color: var(--primary);
+    outline: none;
+    box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+/* Classes utilitaires */
+.text-center {
+    text-align: center;
+}
+
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.p-1 { padding: 0.5rem; }
+.p-2 { padding: 1rem; }
+
+/* Styles spécifiques pour l'application mobile */
+.bottom-nav {
+    display: flex;
+    justify-content: space-around;
+    background-color: white;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0.8rem 0;
+    z-index: 100;
+}
+
+.bottom-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--secondary);
+    font-size: 0.8rem;
+}
+
+.bottom-nav-item.active {
+    color: var(--primary);
+}
+
+.bottom-nav-item i {
+    font-size: 1.5rem;
+    margin-bottom: 0.3rem;
+}
+
+/* Ajustements pour les écrans plus grands */
+@media (min-width: 768px) {
+    .container {
+        max-width: 768px;
+    }
+    
+    .logo {
+        height: 60px;
+    }
+    
+    .brand h1 {
+        font-size: 1.8rem;
+    }
+}

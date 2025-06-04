@@ -1,0 +1,86 @@
+2025-02-07 18:12:11,787 INFO: Upload vers UserImg/nadim.benkrouidem_at_gmail.com [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:209]
+2025-02-07 18:12:12,046 INFO: Upload réussi dans les deux buckets! [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:223]
+2025-02-10 17:12:04,886 INFO: Démarrage de l'application [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:61]
+2025-02-10 17:12:15,485 INFO: Connexion réussie pour l'utilisateur: nadim.benkrouidem@gmail.com [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:105]
+2025-02-10 17:12:39,224 INFO: Début de l'upload [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:178]
+2025-02-10 17:12:39,227 INFO: Upload vers Dirty_Footprint [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:196]
+2025-02-10 17:12:40,060 INFO: Upload vers UserImg/nadim.benkrouidem_at_gmail.com [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:209]
+2025-02-10 17:12:40,393 INFO: Upload réussi dans les deux buckets! [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:223]
+2025-02-10 17:24:05,295 INFO: Démarrage de l'application [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:61]
+2025-02-10 17:24:13,165 INFO: Connexion réussie pour l'utilisateur: nadim.benkrouidem@gmail.com [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:112]
+2025-02-10 17:24:56,178 INFO: Début de l'upload [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:217]
+2025-02-10 17:24:56,182 INFO: Upload vers Dirty_Footprint [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:235]
+2025-02-10 17:24:57,404 INFO: Upload vers UserImg/nadim.benkrouidem_at_gmail.com [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:248]
+2025-02-10 17:24:57,930 INFO: Upload réussi dans les deux buckets! [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:262]
+2025-02-10 17:26:42,746 INFO: Démarrage de l'application [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:61]
+2025-02-10 17:26:54,096 INFO: Connexion réussie pour l'utilisateur: nadim.benkrouidem@gmail.com [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:112]
+2025-02-10 17:26:56,342 ERROR: Erreur dans la galerie: {'statusCode': 500, 'error': DatabaseError, 'message': select * from storage.search($1,$2,$3,$4,$5,$6,$7,$8) - cannot cope with variable-free clause} [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:209]
+2025-02-10 17:26:56,347 ERROR: Exception on /galerie [GET] [in /Users/nadimbenkrouidem/miniconda3/lib/python3.12/site-packages/flask/app.py:875]
+Traceback (most recent call last):
+  File "/Users/nadimbenkrouidem/miniconda3/lib/python3.12/site-packages/storage3/_sync/file_api.py", line 51, in _request
+    response.raise_for_status()
+  File "/Users/nadimbenkrouidem/miniconda3/lib/python3.12/site-packages/httpx/_models.py", line 761, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Server error '500 Internal Server Error' for url 'https://lekndkijyvsrtzpssejb.supabase.co/storage/v1/object/list/UserImg'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py", line 188, in galerie
+    response = supabase.storage.from_('UserImg').list(path=user_email)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nadimbenkrouidem/miniconda3/lib/python3.12/site-packages/storage3/_sync/file_api.py", line 391, in list
+    response = self._request(
+               ^^^^^^^^^^^^^^
+  File "/Users/nadimbenkrouidem/miniconda3/lib/python3.12/site-packages/storage3/_sync/file_api.py", line 54, in _request
+    raise StorageApiError(resp["message"], resp["error"], resp["statusCode"])
+storage3.exceptions.StorageApiError: {'statusCode': 500, 'error': DatabaseError, 'message': select * from storage.search($1,$2,$3,$4,$5,$6,$7,$8) - cannot cope with variable-free clause}
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/nadimbenkrouidem/miniconda3/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nadimbenkrouidem/miniconda3/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nadimbenkrouidem/miniconda3/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nadimbenkrouidem/miniconda3/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py", line 76, in decorated_function
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py", line 210, in galerie
+    return render_template('galerie.html', error=str(e), images=[])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nadimbenkrouidem/miniconda3/lib/python3.12/site-packages/flask/templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nadimbenkrouidem/miniconda3/lib/python3.12/site-packages/jinja2/environment.py", line 1084, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nadimbenkrouidem/miniconda3/lib/python3.12/site-packages/jinja2/environment.py", line 1013, in get_template
+    return self._load_template(name, globals)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nadimbenkrouidem/miniconda3/lib/python3.12/site-packages/jinja2/environment.py", line 972, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nadimbenkrouidem/miniconda3/lib/python3.12/site-packages/jinja2/loaders.py", line 138, in load
+    code = environment.compile(source, name, filename)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nadimbenkrouidem/miniconda3/lib/python3.12/site-packages/jinja2/environment.py", line 768, in compile
+    self.handle_exception(source=source_hint)
+  File "/Users/nadimbenkrouidem/miniconda3/lib/python3.12/site-packages/jinja2/environment.py", line 939, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/templates/galerie.html", line 33, in template
+    {% endblock %}
+jinja2.exceptions.TemplateSyntaxError: Encountered unknown tag 'endblock'.
+2025-02-10 17:26:56,358 ERROR: Erreur serveur: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application. [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:295]
+2025-02-10 17:30:34,731 INFO: Démarrage de l'application [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:61]
+2025-02-10 17:30:41,756 INFO: Connexion réussie pour l'utilisateur: nadim.benkrouidem@gmail.com [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:112]
+2025-02-10 17:30:44,079 ERROR: Erreur dans la galerie: SyncBucketActionsMixin.list() got an unexpected keyword argument 'search' [in /Users/nadimbenkrouidem/Desktop/git_MSPR_6.1/python_file/app.py:209]

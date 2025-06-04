@@ -1,0 +1,70 @@
+/* Styles d'accessibilité généraux */
+
+/* Amélioration du focus pour tous les éléments interactifs */
+a:focus,
+button:focus,
+input:focus,
+textarea:focus,
+select:focus {
+    outline: 3px solid #2a70e0;
+    outline-offset: 2px;
+}
+
+/* Amélioration du contraste des textes */
+body {
+    color: #333;
+    line-height: 1.5;
+}
+
+/* Style pour les messages d'erreur */
+.error-message {
+    color: #d32f2f;
+    background-color: #ffebee;
+    border: 1px solid #ffcdd2;
+    padding: 10px;
+    border-radius: 4px;
+    margin: 10px 0;
+}
+
+/* Styles pour les indices de formulaire */
+.form-hint {
+    font-size: 0.85rem;
+    color: #555;
+    margin-top: 4px;
+}
+
+/* Amélioration de la visibilité des liens */
+a {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+/* Exception pour les liens stylisés comme des boutons */
+a.button,
+a.connexion,
+a.inscription,
+a.accueil,
+a.deconnexion {
+    text-decoration: none;
+}
+
+/* Amélioration de la structure des formulaires */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    justify-content: space-between;
+}
+
+/* Styles pour le mode "réduire les animations" */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+    }
+}

@@ -1,10 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>ERROR 500</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Erreur serveur - WildAware</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='accueil.css') }}">
+    <style>
+        .error-container {
+            text-align: center;
+            padding: 2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .error-code {
+            font-size: 4rem;
+            color: #3cb748;
+            margin-bottom: 1rem;
+        }
+        .error-message {
+            margin-bottom: 2rem;
+        }
+    </style>
 </head>
 <body>
-
+    <header>
+        <div class="entete" role="banner" aria-label="Logo WildAware"></div>
+    </header>
+    <main>
+        <div class="error-container">
+            <div class="error-code" role="heading" aria-level="1">500</div>
+            <div class="error-message">
+                <h2>Erreur serveur</h2>
+                <p>Une erreur est survenue sur notre serveur. Veuillez réessayer ultérieurement.</p>
+            </div>
+            <a href="{{ url_for('index') }}" class="connexion" role="button">Retour à l'accueil</a>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 WildAware - Application d'identification de traces d'animaux</p>
+    </footer>
 </body>
 </html>

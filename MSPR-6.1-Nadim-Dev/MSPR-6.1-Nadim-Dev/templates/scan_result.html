@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block title %}Résultat - WildLens{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <div class="card border-0 shadow-lg overflow-hidden">
+            <div class="card-body p-0">
+                <div class="row g-0">
+                    <div class="col-md-5">
+                        <div class="position-relative h-100">
+                            <img src="{{ image_url }}" alt="Empreinte scannée" class="img-fluid h-100 w-100 object-fit-cover">
+                            <div class="position-absolute bottom-0 start-0 w-100 p-3 bg-dark bg-opacity-75 text-white">
+                                <div class="d-flex align-items-center">
+                                    <div class="me-3">
+                                        <span class="badge bg-success rounded-pill px-3 py-2">{{ confidence|round }}% de certitude</span>
+                                    </div>
+                                    <div>
+                                        <small>Empreinte identifiée</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="p-4 p-lg-5">
+                            <div class="mb-4">
+                                <span class="badge bg-success-subtle text-success mb-2">Identification réussie</span>
+                                <h1 class="display-5 fw-bold text-success">{{ animal }}</h1>
+                                <p class="text-muted mb-0">Empreinte identifiée avec {{ confidence|round }}% de certitude</p>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <h4 class="fw-bold">Le saviez-vous ?</h4>
+                                <p>{{ fun_fact }}</p>
+                            </div>
+                            
+                            <div class="card bg-light border-0 mb-4">
+                                <div class="card-body">
+                                    <h5 class="card-title fw-bold"><i class="fas fa-info-circle text-success me-2"></i>Caractéristiques</h5>
+                                    <ul class="mb-0">
+                                        <li>Habitat: Forêts, prairies</li>
+                                        <li>Alimentation: Omnivore</li>
+                                        <li>Statut de conservation: Préoccupation mineure</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="d-flex flex-wrap gap-2">
+                                <a href="{{ card_url }}" target="_blank" class="btn btn-success">
+                                    <i class="fas fa-external-link-alt me-2"></i>En savoir plus
+                                </a>
+                                <a href="{{ url_for('scan') }}" class="btn btn-outline-success">
+                                    <i class="fas fa-camera me-2"></i>Nouvelle analyse
+                                </a>
+                                <button class="btn btn-outline-dark" onclick="window.print()">
+                                    <i class="fas fa-print me-2"></i>Imprimer
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-5">
+            <h3 class="fw-bold mb-4">Autres animaux similaires</h3>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card border-0 shadow-sm h-100">
+                        <img src="{{ url_for('static', filename='images/similar1.jpg') }}" class="card-img-top" alt="Animal similaire">
+                        <div class="card-body">
+                            <h5 class="card-title">Animal similaire 1</h5>
+                            <p class="card-text">Empreintes souvent confondues avec celles du {{ animal }}.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card border-0 shadow-sm h-100">
+                        <img src="{{ url_for('static', filename='images/similar2.jpg') }}" class="card-img-top" alt="Animal similaire">
+                        <div class="card-body">
+                            <h5 class="card-title">Animal similaire 2</h5>
+                            <p class="card-text">Autre espèce avec des empreintes ressemblantes.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card border-0 shadow-sm h-100">
+                        <img src="{{ url_for('static', filename='images/similar3.jpg') }}" class="card-img-top" alt="Animal similaire">
+                        <div class="card-body">
+                            <h5 class="card-title">Animal similaire 3</h5>
+                            <p class="card-text">Peut être confondu dans certains environnements.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

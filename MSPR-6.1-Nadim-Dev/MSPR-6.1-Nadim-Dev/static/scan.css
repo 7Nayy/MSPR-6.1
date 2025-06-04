@@ -1,0 +1,309 @@
+body 
+{
+    display: contents;  
+}
+
+.entete 
+{
+    background-image: url("/static/Design/wildaware-high-resolution-color-logo.png");
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    height: 20%;
+    font-size: 2rem;
+    border-radius: 1%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.corps 
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    bottom: 5%;
+}
+
+.connexion-form {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 2%;
+    border-radius: 1%;
+    box-shadow: 0 0.5% 1% rgba(111, 111, 111, 0.1);
+    width: 30%;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 2%;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 1%;
+    font-size: 100%;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 2%;
+    border: 1px solid #ccc;
+    border-radius: 1%;
+    font-size: 100%;
+}
+
+.corps a 
+{
+    color: black;
+    text-decoration: none;
+}
+
+.connexion {
+    padding: 12px 20px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 30px;
+    background-color: #f0f0f5;
+    color: rgb(0, 0, 0);
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.connexion:hover {
+    background-color: #3cb748;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Conserver vos styles existants et ajouter : */
+
+.scan-options {
+    display: flex;
+    gap: 2rem;
+    flex-direction: column;
+    align-items: center;
+}
+
+.scan-btn {
+    padding: 12px 20px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 30px;
+    background-color: #f0f0f5;
+    color: rgb(0, 0, 0);
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 250px;
+}
+
+.scan-btn:hover {
+    background-color: #3cb748;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.preview-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.preview-container img {
+    max-width: 90vw;
+    max-height: 70vh;
+    margin-bottom: 15px;
+}
+
+.validate-btn {
+    composes: scan-btn;
+    background-color: #3cb748;
+    color: white;
+}
+
+#camera {
+    max-width: 90vw;
+    max-height: 70vh;
+    margin: 20px auto;
+    display: block;
+}
+
+/* Nouveaux styles pour les messages d'état */
+#status-message {
+    position: fixed;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    z-index: 1000;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    transition: opacity 0.5s;
+}
+
+#status-message.success {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#status-message.error {
+    background-color: #F44336;
+    color: white;
+}
+
+#status-message.info {
+    background-color: #2196F3;
+    color: white;
+}
+
+/* Styles pour la page de résultat */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.user-info {
+    text-align: right;
+    font-size: 0.9rem;
+}
+
+.logout-btn {
+    color: #757575;
+    text-decoration: underline;
+    margin-left: 10px;
+}
+
+.result-container {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 20px 0;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s, transform 0.5s;
+}
+
+.result-container.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.image-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.scanned-image {
+    max-width: 100%;
+    max-height: 300px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.animal-info {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.confidence {
+    font-size: 1.1rem;
+    color: #666;
+    margin-top: 5px;
+}
+
+.card-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.animal-card {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.fun-fact {
+    background-color: #f5f5f5;
+    border-left: 4px solid #3cb748;
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 0 8px 8px 0;
+}
+
+.fun-fact h3 {
+    margin-top: 0;
+    color: #3cb748;
+}
+
+.actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.button {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #3cb748;
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.button:hover {
+    background-color: #34a23e;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.button.secondary {
+    background-color: #757575;
+}
+
+.button.secondary:hover {
+    background-color: #616161;
+}
+
+@media (max-width: 600px) {
+    .actions {
+        flex-direction: column;
+    }
+
+    .button {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+}
